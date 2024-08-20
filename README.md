@@ -1,4 +1,4 @@
-# desafioBackendlientechirede
+# DesafioBackendlientechirede
 
 O desafio consiste na implementação de um sistema back-end e integração
 com o banco de dados que gerencia produtos, desta forma, deve ser entregue
