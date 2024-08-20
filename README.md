@@ -26,13 +26,13 @@ Laravel Sanctum, etc).
  - Implementar busca por nome e descrição. 
 
 # 2 Outros detalhes técnicos:
-a. O back-end apenas fornece endpoints com retorno em JSON.
+ - a. O back-end apenas fornece endpoints com retorno em JSON.
 
 # 3 Documentação: 
-a. Como configurar e executar o projeto.
-b. Qualquer biblioteca ou ferramenta de terceiros utilizada e por quê. 
+- a. Como configurar e executar o projeto.
+- b. Qualquer biblioteca ou ferramenta de terceiros utilizada e por quê. 
 
 # 4 Diferenciais Adicionais:
-a. Uso de Docker para executar o projeto apenas com o comando “dockercomposer up -d”
-b. Implementação de um sistema ACL ( Acess Control List ) no back- end. 
+- a. Uso de Docker para executar o projeto apenas com o comando “dockercomposer up -d”
+- b. Implementação de um sistema ACL ( Acess Control List ) no back- end. 
 
