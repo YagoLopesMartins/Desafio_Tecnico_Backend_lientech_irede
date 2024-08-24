@@ -6,26 +6,50 @@ Esta é uma API desenvolvida em Laravel para gerenciar produtos e categorias.
 
 ### Requisitos
 
+- Docker
 - PHP 8.0 ou superior
 - Composer
-- MySQL (ou outro banco de dados suportado)
+- MySQL
+- Insomnia ou outro API Client for REST (Ex.: Postman etc)
 
 ### Instalação
 
 1. Clone o repositório:
 
     ```bash
-    git clone https://github.com/seu-usuario/seu-repositorio.git
-    cd seu-repositorio
+    git clone https://github.com/YagoLopesMartins/desafioBackendlientechirede.git
+    cd desafioBackendlientechirede
     ```
 
 2. Instale as dependências:
-
-    ```bash
+   2.1 SE LOCAL
+   - Entre no diretorio laravel-app
+   
+   ```bash
     composer install
     ```
+   2.2 COM DOCKER
+   - docker-compose build
+   - docker-compose up -d (iniciará serviço com php e phpmyadmin, mysql e laravel
+     - Obs: Verificar no docker se o container desafiobackendlientechirede foi iniciado, se não fora, inicialize manualmente
+     - Obs2: Entrar na url http://localhost:9001/ para acessar banco de dados do container o qual terá o banco laravel_docker já criado
+       - Credenciais: Servidor: mysql_db; Usuario: root; Senha: root
+   - docker exec -it laravel-docker bash
+   - docker exec laravel-docker bash -c "composer update"
+   - Entre no diretorio laravel-app
+   - Configure arquivo .env (Item 3)
+   - docker exec laravel-docker bash -c "php artisan key:generate"
+   - docker-compose build --no-cache --force-rm
+   - docker exec laravel-docker bash -c "php artisan migrate --ignore-platform-reqs"
+   - docker exec laravel-docker bash -c "php artisan migrate --env=testing"  
+   - docker exec laravel-docker bash -c "php artisan db:seed"
+   - docker exec laravel-docker bash -c "php artisan serve"
+   - docker exec laravel-docker bash -c "php artisan test"
+   - php artisan route:list
+   - php artisan migrate:fresh --seed
+   - php artisan storage:link
 
-3. Configure o arquivo `.env`:
+4. Configure o arquivo `.env`:
 
     Copie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente conforme necessário.
 
@@ -33,19 +57,19 @@ Esta é uma API desenvolvida em Laravel para gerenciar produtos e categorias.
     cp .env.example .env
     ```
 
-4. Gere a chave de aplicativo:
+5. Gere a chave de aplicativo:
 
     ```bash
     php artisan key:generate
     ```
 
-5. Execute as migrações e seeders (se necessário):
+6. Execute as migrações e seeders (se necessário):
 
     ```bash
     php artisan migrate --seed
     ```
 
-6. Inicie o servidor local:
+7. Inicie o servidor local:
 
     ```bash
     php artisan serve
