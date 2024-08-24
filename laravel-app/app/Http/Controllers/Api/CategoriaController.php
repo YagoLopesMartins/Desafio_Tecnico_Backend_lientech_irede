@@ -3,47 +3,87 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\CategoriaRequest;
+use App\Models\Categoria;
+use Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class CategoriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $categorias = Categoria::orderBy('id', 'DESC')->paginate(10);
+
+        return response()->json([
+            'status' => true,
+            'categorias' => $categorias,
+        ], 200);
+    }
+    public function show(Categoria $categoria): JsonResponse
+    {
+        return response()->json([
+            'status' => true,
+            'categoria' => $categoria,
+        ], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(CategoriaRequest $request): JsonResponse
     {
-        //
+        DB::beginTransaction();
+        try {
+            $categoria = Categoria::create([
+                'nome' => $request->nome
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'categoria' => $categoria,
+                'message' => "Categoria cadastrada com sucesso!",
+            ], 201);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => false,
+                'message' => "Categoria não cadastrada!",
+            ], 400);
+        }
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(CategoriaRequest $request, Categoria $categoria): JsonResponse
     {
-        //
+        DB::beginTransaction();
+        try {
+            $categoria->update([
+                'nome' => $request->nome
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'categoria' => $categoria,
+                'message' => "Categoria editada com sucesso!",
+            ], 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => false,
+                'message' => "Categoria não editada!",
+            ], 400);
+        }
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Categoria $categoria): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        try {
+            $categoria->delete();
+            return response()->json([
+                'status' => true,
+                'categoria' => $categoria,
+                'message' => "Categoria apagada com sucesso!",
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => "Categoria não apagada!",
+            ], 400);
+        }
     }
 }
