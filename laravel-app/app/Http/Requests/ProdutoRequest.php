@@ -34,7 +34,7 @@ class ProdutoRequest extends FormRequest
             'descricao' => 'nullable|string|max:200',
             'preco' => 'required|numeric|min:0',
             'data_validade' => 'required|date|after_or_equal:today',
-            'imagem' => 'nullable|image|max:2048',
+            'imagem' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'categoria_id' => 'required|exists:categorias,id',
         ];
     }
