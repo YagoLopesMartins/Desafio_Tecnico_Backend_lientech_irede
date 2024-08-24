@@ -22,34 +22,39 @@ Esta é uma API desenvolvida em Laravel para gerenciar produtos e categorias.
     ```
 
 2. Instale as dependências:
+   2.1 COM DOCKER
+   - docker-compose up -d (iniciará serviço com php e phpmyadmin, mysql e laravel
+     - Obs: Verificar no docker se o container desafiobackendlientechirede foi iniciado, se não fora, inicialize manualmente
+     - Obs1: Se erro de mysql então procure por painel de controle de Serviços do Windows (pressionando Win + R e digite services.msc e depois ENTER), localize o serviço do MySQL, que esta em Execução e interrompa-o (pare)
+     - Obs2: Entrar na url http://localhost:9001/ para acessar banco de dados do container o qual terá o banco laravel_docker já criado
+       - Credenciais: Servidor: mysql_db; Usuario: root; Senha: root
+   - docker-compose build
+   - docker exec laravel-docker bash -c "composer update"
+   - docker exec laravel-docker bash -c "php artisan key:generate"
+   - docker exec laravel-docker bash -c "php artisan migrate"
+   -  docker exec laravel-docker bash -c "php artisan db:seed"
+   - Entre no diretorio laravel-app
+   - Configure arquivo .env (Item 3)
+
+  
    2.1 SE LOCAL
    - Entre no diretorio laravel-app
    
    ```bash
     composer install
     ```
-   2.2 COM DOCKER
-   - docker-compose build
-   - docker-compose up -d (iniciará serviço com php e phpmyadmin, mysql e laravel
-     - Obs: Verificar no docker se o container desafiobackendlientechirede foi iniciado, se não fora, inicialize manualmente
-     - Obs2: Entrar na url http://localhost:9001/ para acessar banco de dados do container o qual terá o banco laravel_docker já criado
-       - Credenciais: Servidor: mysql_db; Usuario: root; Senha: root
+3. Comandos auxiliares
    - docker exec -it laravel-docker bash
-   - docker exec laravel-docker bash -c "composer update"
-   - Entre no diretorio laravel-app
-   - Configure arquivo .env (Item 3)
-   - docker exec laravel-docker bash -c "php artisan key:generate"
    - docker-compose build --no-cache --force-rm
    - docker exec laravel-docker bash -c "php artisan migrate --ignore-platform-reqs"
    - docker exec laravel-docker bash -c "php artisan migrate --env=testing"  
-   - docker exec laravel-docker bash -c "php artisan db:seed"
    - docker exec laravel-docker bash -c "php artisan serve"
    - docker exec laravel-docker bash -c "php artisan test"
    - php artisan route:list
    - php artisan migrate:fresh --seed
    - php artisan storage:link
-
-4. Configure o arquivo `.env`:
+   
+5. Configure o arquivo `.env`:
 
     Copie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente conforme necessário.
 
@@ -57,19 +62,19 @@ Esta é uma API desenvolvida em Laravel para gerenciar produtos e categorias.
     cp .env.example .env
     ```
 
-5. Gere a chave de aplicativo:
+6. Gere a chave de aplicativo:
 
     ```bash
     php artisan key:generate
     ```
 
-6. Execute as migrações e seeders (se necessário):
+7. Execute as migrações e seeders (se necessário):
 
     ```bash
     php artisan migrate --seed
     ```
 
-7. Inicie o servidor local:
+8. Inicie o servidor local:
 
     ```bash
     php artisan serve
