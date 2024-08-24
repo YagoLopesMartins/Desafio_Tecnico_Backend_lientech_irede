@@ -32,6 +32,7 @@ Esta é uma API desenvolvida em Laravel para gerenciar produtos e categorias.
    - docker-compose build
    - docker-compose up -d (iniciará serviço com php e phpmyadmin, mysql e laravel
      - Obs: Verificar no docker se o container desafiobackendlientechirede foi iniciado, se não fora, inicialize manualmente
+     - Obs1: Se erro de mysql então procure por painel de controle de Serviços do Windows (pressionando Win + R e digite services.msc e depois ENTER), localize o serviço do MySQL, que esta em Execução e interrompa-o (pare)
      - Obs2: Entrar na url http://localhost:9001/ para acessar banco de dados do container o qual terá o banco laravel_docker já criado
        - Credenciais: Servidor: mysql_db; Usuario: root; Senha: root
    - docker exec -it laravel-docker bash
