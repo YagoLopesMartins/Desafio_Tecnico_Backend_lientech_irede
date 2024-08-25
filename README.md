@@ -9,14 +9,14 @@ preferência o, e banco de dados MySQL 8.0.
 - O sistema deve ser acessado com autenticação por token (JWT, Oauth2, Laravel Sanctum, etc).
 - Deve-se implementar o modelo entidade-relacionamento a seguir: 
   - Entidade produto: 
-   - i.Nome (Máximo de 50 caracteres) 
-   - ii. Descrição (Máximo de 200 caracteres) 
-   - iii. Preço (Valor positivo, double) 
-   - iv. Data de validade (Não pode ser anterior à data atual) 
-   - v. Imagem (upload de imagem, nome único do arquivo) 
-   - vi. Categoria relacionada 
+    - i.Nome (Máximo de 50 caracteres) 
+    - ii. Descrição (Máximo de 200 caracteres) 
+    - iii. Preço (Valor positivo, double) 
+    - iv. Data de validade (Não pode ser anterior à data atual) 
+    - v. Imagem (upload de imagem, nome único do arquivo) 
+    - vi. Categoria relacionada 
   - Entidade categoria: 
-   - i. Nome: (máximo de 100 caracteres) 
+    - i. Nome: (máximo de 100 caracteres) 
 - O projeto também deve fazer: 
    -  Listar todos os produtos cadastrados. 
    -  Deve ser possível editar e excluir um produto. 
@@ -28,7 +28,7 @@ preferência o, e banco de dados MySQL 8.0.
    - a. Como configurar e executar o projeto. 
    - b. Qualquer biblioteca ou ferramenta de terceiros utilizada e por quê. 
 - Diferenciais Adicionais: 
-   - a. Uso de Docker para executar o projeto apenas com o comando “dockercomposer up -d” 
+   - a. Uso de Docker para executar o projeto apenas com o comando “docker-composer up -d” 
    - b. Implementação de um sistema ACL ( Acess Control List ) no back- end. 
 
 ## Configuração do Projeto
