@@ -44,6 +44,8 @@ Esta é uma API desenvolvida em Laravel para gerenciar produtos e categorias.
     composer install
     ```
 3. Comandos auxiliares
+   - docker-compose up -d --build
+   - docker logs -f --tail 100 laravel-docker
    - docker exec -it laravel-docker bash
    - docker-compose build --no-cache --force-rm
    - docker exec laravel-docker bash -c "php artisan migrate --ignore-platform-reqs"
