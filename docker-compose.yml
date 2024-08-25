@@ -7,6 +7,8 @@ services:
       - ./laravel-app:/var/www/html
     ports:
       - 9000:80
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
 
   mysql_db:
     image: mysql:latest
