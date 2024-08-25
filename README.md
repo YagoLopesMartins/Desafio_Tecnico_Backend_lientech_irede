@@ -37,6 +37,7 @@ Esta é uma API desenvolvida em Laravel para gerenciar produtos e categorias.
          - Senha: root
    - $ docker-compose build
    - $ docker exec laravel-docker bash -c "composer update"
+   - Configure .env (Item 2.2.1 Configure o arquivo .env)
    - $ docker exec laravel-docker bash -c "php artisan key:generate"
    - $ docker exec laravel-docker bash -c "php artisan migrate"
    - $ docker exec laravel-docker bash -c "php artisan db:seed"
