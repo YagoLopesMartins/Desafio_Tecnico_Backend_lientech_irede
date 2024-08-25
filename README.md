@@ -22,8 +22,12 @@ Esta é uma API desenvolvida em Laravel para gerenciar produtos e categorias.
     ```
 
 2. Instale as dependências:
+   
    2.1 COM DOCKER
-   - docker-compose up -d (iniciará serviço com php e phpmyadmin, mysql e laravel
+   ```bash
+   - docker-compose up -d
+     ```
+   (iniciará serviço com php e phpmyadmin, mysql e laravel
      - Obs: Verificar no docker se o container desafiobackendlientechirede foi iniciado, se não fora, inicialize manualmente
      - Obs1: Se erro de mysql então procure por painel de controle de Serviços do Windows (pressionando Win + R
        e digite services.msc e depois ENTER), localize o serviço do MySQL, que esta em Execução e interrompa-o (pare)
