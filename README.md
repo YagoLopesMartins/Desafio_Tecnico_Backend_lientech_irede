@@ -45,13 +45,17 @@ Esta é uma API desenvolvida em Laravel para gerenciar produtos e categorias.
    - Acesse: http://localhost:9000/api/produtos
    - No insomnia importe os arquivos do diretorio insomnia na raiz do projeto e altere a uri para http://localhost:9000/
    - Primeiro é necessário registrar-se http://localhost:9000/api/register, será gerado um token como o exemplo abaixo
+     ```bash
      {
 	   "token": "1|rZCc2cpH94fT5mDm1yoG8gcD6cvqqYLpDur5qZhS0995578b"
      }
+       ```
    - Depois Efetuar o login passando o token anterior no Auth da requisição e o usuário de registro (e-mail e senha) vai gerar outro token exemplo abaixo
+     ```bash
      {
 	   "token": "3|bqQyd54ULpg3eFvH7xAf2jVqdvqT4BgU6ORmHalTcd6ab703"
      }
+       ```
    - Pronto, agora pode testar os endpoints principais repassando o token gerado
 
    2.2 SE LOCAL
