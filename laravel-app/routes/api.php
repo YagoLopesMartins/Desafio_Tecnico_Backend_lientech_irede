@@ -19,6 +19,7 @@ Route::get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('categorias', CategoriaController::class);
     Route::apiResource('produtos', ProdutoController::class);
+    Route::middleware('permission:delete-products')->delete('produtos/{id}', [ProdutoController::class, 'destroy']);
 });
 
 
