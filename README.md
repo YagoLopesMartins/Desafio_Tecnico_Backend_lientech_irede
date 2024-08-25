@@ -17,7 +17,7 @@ Esta é uma API desenvolvida em Laravel para gerenciar produtos e categorias.
 1. Clone o repositório:
 
     ```bash
-    git clone https://github.com/YagoLopesMartins/desafioBackendlientechirede.git
+    $ git clone https://github.com/YagoLopesMartins/desafioBackendlientechirede.git
     cd desafioBackendlientechirede
     ```
 
@@ -25,9 +25,8 @@ Esta é uma API desenvolvida em Laravel para gerenciar produtos e categorias.
    
    2.1 COM DOCKER
    ```bash
-   - docker-compose up -d
+   $ docker-compose up -d // (iniciará serviço com php e phpmyadmin, mysql e laravel
      ```
-   (iniciará serviço com php e phpmyadmin, mysql e laravel
      - Obs: Verificar no docker se o container desafiobackendlientechirede foi iniciado, se não fora, inicialize manualmente
      - Obs1: Se erro de mysql então procure por painel de controle de Serviços do Windows (pressionando Win + R
        e digite services.msc e depois ENTER), localize o serviço do MySQL, que esta em Execução e interrompa-o (pare)
@@ -36,11 +35,11 @@ Esta é uma API desenvolvida em Laravel para gerenciar produtos e categorias.
          - Servidor: mysql_db
          - Usuario: root
          - Senha: root
-   - docker-compose build
-   - docker exec laravel-docker bash -c "composer update"
-   - docker exec laravel-docker bash -c "php artisan key:generate"
-   - docker exec laravel-docker bash -c "php artisan migrate"
-   - docker exec laravel-docker bash -c "php artisan db:seed"
+   - $ docker-compose build
+   - $ docker exec laravel-docker bash -c "composer update"
+   - $ docker exec laravel-docker bash -c "php artisan key:generate"
+   - $ docker exec laravel-docker bash -c "php artisan migrate"
+   - $ docker exec laravel-docker bash -c "php artisan db:seed"
    - Acesse: http://localhost:9000/
    - Acesse: http://localhost:9000/api/produtos
    - No insomnia importe os arquivos do diretorio insomnia na raiz do projeto e altere a uri para http://localhost:9000/
