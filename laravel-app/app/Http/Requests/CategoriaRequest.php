@@ -39,7 +39,7 @@ class CategoriaRequest extends FormRequest
     {
         return [
             'nome.required' => 'Campo nome da categoria é obrigatorio',
-            'nome.max' => 'O nome da categoria não pode ter mais que 100 caracteres.'
+            'nome.max'      => 'O nome da categoria não pode ter mais que 100 caracteres.'
         ];
     }
 }

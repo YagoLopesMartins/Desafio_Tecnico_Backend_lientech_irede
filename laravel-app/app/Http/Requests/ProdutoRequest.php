@@ -30,12 +30,12 @@ class ProdutoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|string|max:50',
-            'descricao' => 'nullable|string|max:200',
-            'preco' => 'required|numeric|min:0',
-            'data_validade' => 'required|date|after_or_equal:today',
-            'imagem' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-            'categoria_id' => 'required|exists:categorias,id',
+            'nome'          => 'string|max:50',
+            'descricao'     => 'nullable|string|max:200',
+            'preco'         => 'numeric|min:0',
+            'data_validade' => 'date|after_or_equal:today',
+            'imagem'        => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'categoria_id'  => 'exists:categorias,id',
         ];
     }
     public function messages(): array

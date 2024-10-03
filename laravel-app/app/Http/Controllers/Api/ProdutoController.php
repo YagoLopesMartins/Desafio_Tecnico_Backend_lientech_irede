@@ -26,105 +26,83 @@ class ProdutoController extends Controller
 
         return response()->json([
             'status' => true,
-            'products' => $products,
+            'data' => $products,
         ],200);
     }
     public function show(Produto $produto): JsonResponse
     {
         return response()->json([
             'status' => true,
-            'produto' => $produto->load('categorias')
+            'data' => $produto->load('categorias')
         ],200);
     }
 
     public function store(ProdutoRequest $request): JsonResponse
     {
-        DB::beginTransaction();
-
-        if ($request->hasFile('imagem')) {
-            $path = $request->file('imagem')->store('product_images', 'public');
-        } else {
-            $path = null;
+        if (!$request->hasFile('imagem')) {
             return response()->json(['error' => 'Image upload failed'], 422);
         }
+        DB::beginTransaction();
         try {
-            $produto = Produto::create([
-                'nome' => $request->nome,
-                'descricao' => $request->descricao,
-                'preco' => $request->preco,
-                'data_validade' => $request->data_validade,
-                'imagem' => $path,
-                'categoria_id' => $request->categoria_id
-            ]);
+            $path = $request->file('imagem')->store('product_images', 'public');
+            $produto = Produto::create($request->validated() + ['imagem' => $path]);
+
             DB::commit();
+
             return response()->json([
                 'status' => true,
-                'produto' => $produto,
-                'message' => "Categoria cadastrada com sucesso!",
+                'data' => $produto,
+                'message' => "Produto cadastrado com sucesso!",
             ], 201);
         } catch (Exception $e) {
             DB::rollBack();
             return response()->json([
                 'status' => false,
-                'message' => "Categoria não cadastrada!",
+                'message' => "Produto não cadastrado!",
             ], 400);
         }
-
     }
 
-    public function update(Request $request, $id)
+    public function update(ProdutoRequest $request, Produto $produto) :JsonResponse
     {
-        // Validação dos dados
-        $request->validate([
-            'nome' => 'required|max:50',
-            'descricao' => 'required|max:200',
-            'preco' => 'required|numeric|min:0',
-            'data_validade' => 'required|date|after_or_equal:today',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'categoria_id' => 'required|exists:categorias,id',
-        ]);
+        $produto->update($request->validated());
 
-        // Encontra o produto pelo ID
-        $product = Produto::findOrFail($id);
+        $produto->imagem = $this->handleImageUpload($request, $produto);
 
-        // Verifique se o arquivo de imagem foi enviado
-        if ($request->hasFile('imagem')) {
-            // Armazena a nova imagem e substitui a antiga
-            $path = $request->file('imagem')->store('product_images', 'public');
-            $product->imagem = $path;
-        }
+        $produto->save();
 
-        // Atualiza os demais campos
-        $product->nome = $request->input('nome');
-        $product->descricao = $request->input('descricao');
-        $product->preco = $request->input('preco');
-        $product->data_validade = $request->input('data_validade');
-        $product->categoria_id = $request->input('categoria_id');
-
-        // Salva as alterações
-        $product->save();
-
-        // Retorna a resposta
-        return response()->json($product, 200);
+        return response()->json([
+            'status' => true,
+            'data' => $produto,
+            'message' => 'Produto atualizado com sucesso!'
+        ], 200);
     }
-    public function destroy($id): JsonResponse
+    public function destroy(Produto $produto): JsonResponse
     {
-        $product = Produto::findOrFail($id);
-        if ($product->imagem) {
-            Storage::disk('public')->delete($product->imagem);
+        if ($produto->imagem) {
+            Storage::disk('public')->delete($produto->imagem);
         }
         try {
-            $product->delete();
+            $produto->delete();
             return response()->json([
                 'status' => true,
-                'produto' => $product,
-                'message' => "Produto apagado com sucesso!",
+                'message' => "Produto excluido com sucesso!",
             ], 200);
         } catch (Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => "Produto não apagado!",
+                'message' => "Produto não excluido!",
             ], 400);
         }
+    }
+    protected function handleImageUpload(Request $request, ?Produto $produto = null)
+    {
+        if ($request->hasFile('imagem')) {
+            if ($produto && $produto->imagem) {
+                Storage::disk('public')->delete($produto->imagem);
+            }
+            return $request->file('imagem')->store('product_images', 'public');
+        }
+        return $produto->imagem ?? null;
     }
 }
