@@ -31,3 +31,7 @@ RUN docker-php-ext-install gettext intl pdo_mysql gd
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
+
+# Copy entrypoint.sh script
+COPY laravel-app/entrypoint.sh /var/www/html/entrypoint.sh
+RUN chmod +x /var/www/html/entrypoint.sh

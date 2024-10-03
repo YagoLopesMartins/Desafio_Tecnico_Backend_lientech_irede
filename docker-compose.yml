@@ -9,6 +9,9 @@ services:
       - 9000:80
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html/public
+    depends_on:
+      - mysql_db
+    entrypoint: [ "/var/www/html/entrypoint.sh" ]
 
   mysql_db:
     image: mysql:latest
